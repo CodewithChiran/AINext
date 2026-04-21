@@ -22,5 +22,10 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Course Details', response.data)
 
+    def test_index_no_raw_css_in_body(self):
+        response = self.app.get('/')
+        self.assertNotIn(b'box-sizing: border-box', response.data)
+        self.assertNotIn(b'...existing code...', response.data)
+
 if __name__ == '__main__':
     unittest.main()
